@@ -19,7 +19,8 @@ public enum SuccessType {
 	/**
 	 * 201 Created
 	 */
-	GROUP_CREATE_SUCCESS(HttpStatus.CREATED, "그룹 생성에 성공했습니다.")
+	GROUP_CREATE_SUCCESS(HttpStatus.CREATED, "그룹 생성에 성공했습니다."),
+	GROUP_JOIN_SUCCESS(HttpStatus.CREATED, "그룹 조인에 성공했습니다.")
 
 
 	;

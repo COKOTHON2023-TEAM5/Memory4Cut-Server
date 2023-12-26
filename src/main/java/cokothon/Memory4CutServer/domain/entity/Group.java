@@ -47,4 +47,8 @@ public class Group extends BaseTimeEntity {
 		this.achievedStatus = achievedStatus;
 		this.inviteCode = inviteCode;
 	}
+
+	public void addGroupMember(Member member) {
+		this.getMembers().add(member);
+	}
 }
