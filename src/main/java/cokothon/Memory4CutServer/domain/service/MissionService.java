@@ -20,7 +20,9 @@ import cokothon.Memory4CutServer.global.common.exception.BaseException;
 import cokothon.Memory4CutServer.global.common.response.ErrorType;
 import cokothon.Memory4CutServer.global.external.S3Service;
 import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 
+@Slf4j
 @Service
 @Transactional(readOnly = true)
 @RequiredArgsConstructor
@@ -39,8 +41,9 @@ public class MissionService {
 			final String imgUrl = s3Service.uploadImage(MISSON_IMAGE_FOLDER_NAME, image);
 			Group group = getGroupById(groupId);
 
-			if (group.getAchievedList().size() == 4) {
-				return GetGroupPhotoResponse.of(group.getAchievedList());
+			if (group.getAchievedList().size() >= 4) {
+				// return GetGroupPhotoResponse.of(group.getAchievedList());
+				throw new BaseException(ErrorType.ALREADY_FULL_ACHIEVE_MISSION);
 			}
 
 			MemberMission memberMission = MemberMission.builder()
@@ -51,8 +54,10 @@ public class MissionService {
 				.build();
 			memberMissionRepository.save(memberMission);
 
+			log.info("새로운 memberMission={} -> 추가 전", memberMission.getMission().getContent());
 			group.addAchieveMission(memberMission);
-			return GetGroupPhotoResponse.of(new ArrayList<MemberMission>());
+			log.info("추가 후={}", group.getAchievedList());
+			return GetGroupPhotoResponse.of(group.getAchievedList());
 		} catch (RuntimeException | IOException e) {
 			throw new RuntimeException(e.getMessage());
 		}
