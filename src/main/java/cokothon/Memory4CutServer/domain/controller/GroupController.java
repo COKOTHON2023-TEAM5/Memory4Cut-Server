@@ -40,6 +40,7 @@ public class GroupController {
 	@PostMapping("/join")
 	@ResponseStatus(HttpStatus.CREATED)
 	public ApiResponse joinGroup(@RequestBody JoinGroupRequest request) {
+		groupService.joinGroup(request);
 		return ApiResponse.success(SuccessType.GROUP_JOIN_SUCCESS);
 	}
 }
