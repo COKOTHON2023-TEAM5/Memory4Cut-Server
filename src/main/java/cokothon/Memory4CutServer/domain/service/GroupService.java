@@ -1,5 +1,6 @@
 package cokothon.Memory4CutServer.domain.service;
 
+import org.apache.commons.lang3.RandomStringUtils;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -25,7 +26,7 @@ public class GroupService {
 	}
 
 	public GetInviteCodeResponse generateInviteCode() {
-		return RandomStringUtils.randomAlphabetic(4).toUpperCase() +
-			"-" + RandomStringUtils.randomAlphanumeric(6);
+		return new GetInviteCodeResponse(RandomStringUtils.randomAlphabetic(4).toUpperCase() +
+			"-" + RandomStringUtils.randomAlphanumeric(6));
 	}
 }

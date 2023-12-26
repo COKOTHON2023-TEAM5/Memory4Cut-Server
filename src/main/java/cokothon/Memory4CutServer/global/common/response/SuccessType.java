@@ -14,6 +14,7 @@ public enum SuccessType {
 	 * 200 Ok
 	 */
 	HEALTH_CHECK_SUCCESS(HttpStatus.OK, "헬스 체크에 성공했습니다."),
+	GET_INVITE_CODE_SUCCESS(HttpStatus.OK, "랜덤 초대코드 조회에 성공했습니다."),
 
 	/**
 	 * 201 Created
