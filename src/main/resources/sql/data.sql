@@ -1,5 +1,16 @@
-# INSERT INTO mission (content, tense_type)
-# VALUES ('어릴 적 내 귀여운 모습을 자랑해줘', 'PAST'),
-#        ('지금 바로 엽사 찍어서 올리기', 'PRESENT');
-#
-#
+INSERT INTO mission (content, tense_type)
+VALUES ('어릴 적 내 귀여운 모습을 자랑해줘', 'PAST'),
+        ('지금 바로 엽사 찍어서 올리기', 'PRESENT'),
+        ('어린 시절 추억의 장소 다시 가기', 'PAST'),
+        ('어릴때와 비슷한 옷입고 같은포즈로 사진찍기', 'PAST'),
+        ('서로의 추억의 드라마, 게임 등 공유하기', 'PAST'),
+        ('최신 유행 3가지 따라하기', 'PRESENT'),
+        ('우정/사랑을 나누는 소품 만들기', 'PRESENT'),
+        ('서로의 취향대로 꾸며주기(옷입히기)', 'PRESENT'),
+        ('사진관에서 지금 우리의 모습 기록하기', 'PRESENT'),
+        ('특이한 구도로 사진찍기', 'PRESENT'),
+        ('타임캡슐 만들어서 간직하기', 'FUTURE'),
+        ('미래의 서로에게 편지써주기', 'FUTURE'),
+        ('여행 계획 세워보기', 'FUTURE');
+
+
