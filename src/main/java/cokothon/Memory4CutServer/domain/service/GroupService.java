@@ -1,0 +1,31 @@
+package cokothon.Memory4CutServer.domain.service;
+
+import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
+
+import cokothon.Memory4CutServer.domain.dto.request.PostGroupRequest;
+import cokothon.Memory4CutServer.domain.dto.response.GetInviteCodeResponse;
+import cokothon.Memory4CutServer.domain.entity.Group;
+import cokothon.Memory4CutServer.domain.infrastructure.GroupRepository;
+import lombok.RequiredArgsConstructor;
+
+@Service
+@Transactional(readOnly = true)
+@RequiredArgsConstructor
+public class GroupService {
+
+	private final GroupRepository groupRepository;
+
+	@Transactional
+	public void createGroup(PostGroupRequest request) {
+		Group group = Group.builder()
+			.name(request.name())
+			.build();
+		groupRepository.save(group);
+	}
+
+	public GetInviteCodeResponse generateInviteCode() {
+		return RandomStringUtils.randomAlphabetic(4).toUpperCase() +
+			"-" + RandomStringUtils.randomAlphanumeric(6);
+	}
+}

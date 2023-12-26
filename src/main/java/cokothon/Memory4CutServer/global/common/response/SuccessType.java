@@ -9,7 +9,19 @@ import lombok.Getter;
 @Getter
 @AllArgsConstructor(access = AccessLevel.PROTECTED)
 public enum SuccessType {
-	HEALTH_CHECK_SUCCESS(HttpStatus.OK, "헬스 체크에 성공했습니다.");
+
+	/**
+	 * 200 Ok
+	 */
+	HEALTH_CHECK_SUCCESS(HttpStatus.OK, "헬스 체크에 성공했습니다."),
+
+	/**
+	 * 201 Created
+	 */
+	GROUP_CREATE_SUCCESS(HttpStatus.CREATED, "그룹 생성에 성공했습니다.")
+
+
+	;
 
 	private final HttpStatus httpStatus;
 	private final String message;

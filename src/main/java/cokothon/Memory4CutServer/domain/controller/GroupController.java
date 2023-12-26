@@ -1,0 +1,29 @@
+package cokothon.Memory4CutServer.domain.controller;
+
+import org.springframework.http.HttpStatus;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.ResponseStatus;
+import org.springframework.web.bind.annotation.RestController;
+
+import cokothon.Memory4CutServer.domain.dto.request.PostGroupRequest;
+import cokothon.Memory4CutServer.domain.service.GroupService;
+import cokothon.Memory4CutServer.global.common.response.ApiResponse;
+import cokothon.Memory4CutServer.global.common.response.SuccessType;
+import lombok.RequiredArgsConstructor;
+
+@RestController
+@RequestMapping("/group")
+@RequiredArgsConstructor
+public class GroupController {
+
+	private final GroupService groupService;
+
+	@PostMapping
+	@ResponseStatus(HttpStatus.CREATED)
+	public ApiResponse createGroup(@RequestBody PostGroupRequest request) {
+		groupService.createGroup(request);
+		return ApiResponse.success(SuccessType.GROUP_CREATE_SUCCESS);
+	}
+}
