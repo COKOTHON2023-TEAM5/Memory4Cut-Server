@@ -38,7 +38,7 @@ public class Group extends BaseTimeEntity {
 	private List<MemberMission> achievedList = new ArrayList<>();
 
 	@Builder
-	public Group(String name, int achievedStatus, String inviteCode) {
+	public Group(String name, String inviteCode) {
 		this.name = name;
 		this.inviteCode = inviteCode;
 	}

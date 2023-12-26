@@ -23,8 +23,7 @@ public class GroupService {
 	@Transactional
 	public void createGroup(PostGroupRequest request) {
 		Group group = Group.builder()
-			.name(request.name())
-			.achievedStatus(0)
+			.name(request.groupName())
 			.inviteCode(request.inviteCode())
 			.build();
 		groupRepository.save(group);

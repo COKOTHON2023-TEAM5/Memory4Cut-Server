@@ -1,7 +1,6 @@
 package cokothon.Memory4CutServer.domain.controller;
 
 import org.springframework.http.HttpStatus;
-import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PatchMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -26,14 +25,14 @@ public class MissionController {
 
 	private final MissionService missionService;
 
-	@PatchMapping("/upload")
+	@PatchMapping(value = "/upload", consumes = "multipart/form-data")
 	@ResponseStatus(HttpStatus.OK)
 	public ApiResponse<GetGroupPhotoResponse> uploadMissionAchieve(
-			@RequestPart MultipartFile image,
+			@RequestPart("mission_img") MultipartFile missionImg,
 			@RequestBody AchieveMissionRequest request,
 			@PathVariable Long groupId) {
 
-		return ApiResponse.success(SuccessType.UPLOAD_MISSION_ACHIEVE_SUCCESS, missionService.achieveMission(request, image, groupId));
+		return ApiResponse.success(SuccessType.UPLOAD_MISSION_ACHIEVE_SUCCESS, missionService.achieveMission(request, missionImg, groupId));
 	}
 
 	@PatchMapping
