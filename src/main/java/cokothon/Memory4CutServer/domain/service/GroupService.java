@@ -21,6 +21,8 @@ public class GroupService {
 	public void createGroup(PostGroupRequest request) {
 		Group group = Group.builder()
 			.name(request.name())
+			.achievedStatus(0)
+			.inviteCode(request.inviteCode())
 			.build();
 		groupRepository.save(group);
 	}
