@@ -16,6 +16,7 @@ import cokothon.Memory4CutServer.domain.dto.response.GetMissionResponse;
 import cokothon.Memory4CutServer.domain.service.MissionService;
 import cokothon.Memory4CutServer.global.common.response.ApiResponse;
 import cokothon.Memory4CutServer.global.common.response.SuccessType;
+import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 
 @RestController

@@ -1,9 +1,17 @@
 package cokothon.Memory4CutServer.global.common.advice;
 
+import java.util.HashMap;
+import java.util.Map;
+import java.util.Objects;
+
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.http.converter.HttpMessageNotReadableException;
 import org.springframework.stereotype.Component;
+import org.springframework.validation.Errors;
+import org.springframework.validation.FieldError;
 import org.springframework.web.HttpRequestMethodNotSupportedException;
+import org.springframework.web.bind.MethodArgumentNotValidException;
 import org.springframework.web.bind.MissingRequestHeaderException;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.ResponseStatus;
@@ -23,6 +31,21 @@ public class ControllerExceptionAdvice {
 	/**
 	 * 400 Bad Request
 	 */
+
+	@ResponseStatus(HttpStatus.BAD_REQUEST)
+	@ExceptionHandler(MethodArgumentNotValidException.class)
+	protected ApiResponse handleMethodArgumentNotValidException(final MethodArgumentNotValidException e) {
+
+		Errors errors = e.getBindingResult();
+		Map<String, String> validateDetails = new HashMap<>();
+
+		for (FieldError error : errors.getFieldErrors()) {
+			String validKeyName = String.format("valid_%s", error.getField());
+			validateDetails.put(validKeyName, error.getDefaultMessage());
+		}
+		return ApiResponse.error(ErrorType.REQUEST_VALIDATION_EXCEPTION, validateDetails);
+	}
+
 	// 잘못된 타입으로 요청을 보낸 경우
 	@ResponseStatus(HttpStatus.BAD_REQUEST)
 	@ExceptionHandler(MethodArgumentTypeMismatchException.class)
