@@ -10,6 +10,7 @@ import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.OneToMany;
+import jakarta.persistence.Table;
 import lombok.AccessLevel;
 import lombok.Builder;
 import lombok.Getter;
@@ -17,6 +18,7 @@ import lombok.RequiredArgsConstructor;
 
 @Getter
 @Entity
+@Table(name = "`group`")
 @RequiredArgsConstructor(access = AccessLevel.PROTECTED)
 public class Group extends BaseTimeEntity {
 
@@ -33,10 +35,10 @@ public class Group extends BaseTimeEntity {
 	@Column(nullable = false)
 	private String inviteCode;
 
-	@OneToMany(fetch = FetchType.LAZY)
+	@OneToMany(fetch = FetchType.EAGER)
 	private List<MemberMission> missionList = new ArrayList<>();
 
-	@OneToMany(fetch = FetchType.LAZY)
+	@OneToMany(fetch = FetchType.EAGER)
 	private List<Member> members = new ArrayList<>();
 
 	@Builder
@@ -44,5 +46,9 @@ public class Group extends BaseTimeEntity {
 		this.name = name;
 		this.achievedStatus = achievedStatus;
 		this.inviteCode = inviteCode;
+	}
+
+	public void addGroupMember(Member member) {
+		this.getMembers().add(member);
 	}
 }

@@ -40,6 +40,8 @@ dependencies {
 	// MySQL
 	runtimeOnly 'com.mysql:mysql-connector-j'
 
+	// random String
+	implementation 'org.apache.commons:commons-lang3'
 
 }
 

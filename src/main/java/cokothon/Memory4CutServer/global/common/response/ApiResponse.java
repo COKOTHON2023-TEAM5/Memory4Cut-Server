@@ -22,6 +22,10 @@ public class ApiResponse<T> {
 		return new ApiResponse<>(successType.getHttpStatusCode(), successType.getMessage(), data);
 	}
 
+	public static ApiResponse success(SuccessType successType) {
+		return new ApiResponse<>(successType.getHttpStatusCode(), successType.getMessage());
+	}
+
 	public static ApiResponse error(ErrorType errorType, String message) {
 		return new ApiResponse<>(errorType.getHttpStatusCode(), message);
 	}
