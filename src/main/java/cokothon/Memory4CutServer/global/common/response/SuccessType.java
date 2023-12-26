@@ -16,6 +16,7 @@ public enum SuccessType {
 	HEALTH_CHECK_SUCCESS(HttpStatus.OK, "헬스 체크에 성공했습니다."),
 	GET_INVITE_CODE_SUCCESS(HttpStatus.OK, "랜덤 초대코드 조회에 성공했습니다."),
 	UPLOAD_MISSION_ACHIEVE_SUCCESS(HttpStatus.OK, "미션 인증 사진 업로드에 성공했습니다."),
+	GET_NEW_MISSION_SUCCESS(HttpStatus.OK, "새로운 미션 조회에 성공했습니다."),
 
 	/**
 	 * 201 Created

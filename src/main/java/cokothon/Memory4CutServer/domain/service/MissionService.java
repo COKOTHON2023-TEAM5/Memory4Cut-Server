@@ -8,6 +8,7 @@ import org.springframework.web.multipart.MultipartFile;
 
 import cokothon.Memory4CutServer.domain.dto.request.AchieveMissionRequest;
 import cokothon.Memory4CutServer.domain.dto.response.GetGroupPhotoResponse;
+import cokothon.Memory4CutServer.domain.dto.response.GetMissionResponse;
 import cokothon.Memory4CutServer.domain.entity.Group;
 import cokothon.Memory4CutServer.domain.entity.MemberMission;
 import cokothon.Memory4CutServer.domain.entity.Mission;
@@ -33,9 +34,7 @@ public class MissionService {
 	public GetGroupPhotoResponse achieveMission(AchieveMissionRequest request, MultipartFile image, Long groupId) {
 		try {
 			final String imgUrl = s3Service.uploadImage(MISSON_IMAGE_FOLDER_NAME, image);
-			Group group = groupRepository.findById(groupId).orElseThrow(
-				() -> new BaseException(ErrorType.NOT_FOUND_GROUP)
-			);
+			Group group = getGroupById(groupId);
 
 			if (group.getAchievedList().size() == 4) {
 				return GetGroupPhotoResponse.of(group.getAchievedList());
@@ -52,6 +51,24 @@ public class MissionService {
 		} catch (RuntimeException | IOException e) {
 			throw new RuntimeException(e.getMessage());
 		}
+	}
+
+	public GetMissionResponse getNewMission(Long groupId) {
+
+		Group group = getGroupById(groupId);
+		Mission mission = existsMissionByGroup(group);
+		group.getAchievedList().add(MemberMission.builder()
+			.isAchieve(false)
+			.mission(mission)
+			.build());
+
+		return GetMissionResponse.of(mission, group.achieveCount());
+	}
+
+	private Group getGroupById(Long id) {
+		return groupRepository.findById(id).orElseThrow(
+			() -> new BaseException(ErrorType.NOT_FOUND_GROUP)
+		);
 	}
 
 	private Mission existsMissionByGroup(Group group) {

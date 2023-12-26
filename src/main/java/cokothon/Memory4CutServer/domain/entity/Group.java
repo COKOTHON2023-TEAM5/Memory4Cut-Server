@@ -50,4 +50,11 @@ public class Group extends BaseTimeEntity {
 	public void clearMissons() {
 		this.achievedList.clear();
 	}
+
+	public int achieveCount() {
+		long count = achievedList.stream()
+			.filter(mission -> mission.getNickname() != null)
+			.count();
+		return (int) count;
+	}
 }
