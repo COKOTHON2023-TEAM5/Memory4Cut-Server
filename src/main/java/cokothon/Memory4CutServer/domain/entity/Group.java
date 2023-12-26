@@ -1,7 +1,9 @@
 package cokothon.Memory4CutServer.domain.entity;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
@@ -30,25 +32,35 @@ public class Group extends BaseTimeEntity {
 	private String name;
 
 	@Column(nullable = false)
-	private int achievedStatus;
-
-	@Column(nullable = false)
 	private String inviteCode;
 
 	@OneToMany(fetch = FetchType.EAGER)
-	private List<MemberMission> missionList = new ArrayList<>();
-
-	@OneToMany(fetch = FetchType.EAGER)
-	private List<Member> members = new ArrayList<>();
+	private List<MemberMission> achievedList = new ArrayList<>();
 
 	@Builder
-	public Group(String name, int achievedStatus, String inviteCode) {
+	public Group(String name, String inviteCode) {
 		this.name = name;
-		this.achievedStatus = achievedStatus;
 		this.inviteCode = inviteCode;
 	}
 
-	public void addGroupMember(Member member) {
-		this.getMembers().add(member);
+	public void addAchieveMission(MemberMission mission) {
+		this.achievedList.add(mission);
+	}
+
+	public void clearMissons() {
+		this.achievedList.clear();
+	}
+
+	public int achieveCount() {
+		long count = achievedList.stream()
+			.filter(mission -> mission.getNickname() != null)
+			.count();
+		return (int) count;
+	}
+
+	public void changeMission(Mission mission) {
+		if (this.achievedList.size() == 1) {
+			this.achievedList.get(0).updateMission(mission);
+		}
 	}
 }

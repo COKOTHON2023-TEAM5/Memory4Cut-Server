@@ -29,4 +29,12 @@ public class ApiResponse<T> {
 	public static ApiResponse error(ErrorType errorType, String message) {
 		return new ApiResponse<>(errorType.getHttpStatusCode(), message);
 	}
+
+	public static ApiResponse error(ErrorType errorType) {
+		return new ApiResponse<>(errorType.getHttpStatusCode(), errorType.getMessage());
+	}
+
+	public static ApiResponse<Exception> error(ErrorType errorType, Exception e) {
+		return new ApiResponse<>(errorType.getHttpStatusCode(), errorType.getMessage(), e);
+	}
 }

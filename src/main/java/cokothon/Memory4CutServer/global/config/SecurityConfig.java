@@ -16,6 +16,8 @@ public class SecurityConfig {
                 .csrf().disable()
                 .formLogin().disable()
                 .httpBasic().disable()   // Security 설정 제외
-                .build();   // -> 스프링 빈으로 등록, 어플리케이션 실행 시 자동으로 필터에 등록된다!
+                .authorizeHttpRequests()
+                .anyRequest().permitAll()
+                .and().build();   // -> 스프링 빈으로 등록, 어플리케이션 실행 시 자동으로 필터에 등록된다!
     }
 }

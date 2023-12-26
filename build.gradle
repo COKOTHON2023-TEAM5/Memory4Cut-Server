@@ -43,6 +43,13 @@ dependencies {
 	// random String
 	implementation 'org.apache.commons:commons-lang3'
 
+	// AWS sdk
+	implementation("software.amazon.awssdk:bom:2.21.0")
+	implementation("software.amazon.awssdk:s3:2.21.0")
+
+	// jackson
+	implementation 'com.fasterxml.jackson.core:jackson-databind:2.13.0' // Use the latest version
+
 }
 
 tasks.named('bootBuildImage') {

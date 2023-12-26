@@ -23,6 +23,8 @@ public class MemberMission extends BaseTimeEntity {
 	@Column(name = "member_mission_id")
 	private Long id;
 
+	private String nickname;
+
 	@Column(nullable = false)
 	private boolean isAchieve = false;
 
@@ -33,9 +35,14 @@ public class MemberMission extends BaseTimeEntity {
 	private Mission mission;
 
 	@Builder
-	public MemberMission(boolean isAchieve, String imgUrl, Mission mission) {
+	public MemberMission(String nickname, boolean isAchieve, String imgUrl, Mission mission) {
+		this.nickname = nickname;
 		this.isAchieve = isAchieve;
 		this.imgUrl = imgUrl;
+		this.mission = mission;
+	}
+
+	public void updateMission(Mission mission) {
 		this.mission = mission;
 	}
 }
