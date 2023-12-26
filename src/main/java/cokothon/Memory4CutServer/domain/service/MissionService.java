@@ -13,6 +13,7 @@ import cokothon.Memory4CutServer.domain.entity.Group;
 import cokothon.Memory4CutServer.domain.entity.MemberMission;
 import cokothon.Memory4CutServer.domain.entity.Mission;
 import cokothon.Memory4CutServer.domain.infrastructure.GroupRepository;
+import cokothon.Memory4CutServer.domain.infrastructure.MemberMissionRepository;
 import cokothon.Memory4CutServer.domain.infrastructure.MissionRepository;
 import cokothon.Memory4CutServer.global.common.exception.BaseException;
 import cokothon.Memory4CutServer.global.common.response.ErrorType;
@@ -28,6 +29,7 @@ public class MissionService {
 
 	private final MissionRepository missionRepository;
 	private final GroupRepository groupRepository;
+	private final MemberMissionRepository memberMissionRepository;
 	private final S3Service s3Service;
 
 	@Transactional
@@ -46,6 +48,8 @@ public class MissionService {
 				.mission(existsMissionByGroup(group))
 				.nickname(request.nickname())
 				.build();
+			memberMissionRepository.save(memberMission);
+
 			group.addAchieveMission(memberMission);
 			return GetGroupPhotoResponse.of(null);
 		} catch (RuntimeException | IOException e) {
@@ -58,11 +62,13 @@ public class MissionService {
 
 		Group group = getGroupById(groupId);
 		Mission mission = existsMissionByGroup(group);
-		group.getAchievedList().add(MemberMission.builder()
+		MemberMission memberMission = MemberMission.builder()
 			.isAchieve(false)
 			.mission(mission)
-			.build());
+			.build();
+		memberMissionRepository.save(memberMission);
 
+		group.getAchievedList().add(memberMission);
 		return GetMissionResponse.of(mission, group.achieveCount());
 	}
 
@@ -74,7 +80,7 @@ public class MissionService {
 		if (group.achieveCount() >= 1) {
 			throw new BaseException(ErrorType.INVALID_TRY_TO_CHANGE_MISSION);
 		}
-		Mission mission = missionRepository.getRandomNewMission(group.getAchievedList().get(0).getMission());
+		Mission mission = missionRepository.getRandomNewMission(group.getAchievedList().get(0).getMission().getId());
 		group.changeMission(mission);
 
 		return GetMissionResponse.of(mission, group.achieveCount());
