@@ -6,6 +6,7 @@ import org.springframework.transaction.annotation.Transactional;
 
 import cokothon.Memory4CutServer.domain.dto.request.JoinGroupRequest;
 import cokothon.Memory4CutServer.domain.dto.request.PostGroupRequest;
+import cokothon.Memory4CutServer.domain.dto.response.GetGroupPhotoResponse;
 import cokothon.Memory4CutServer.domain.dto.response.GetInviteCodeResponse;
 import cokothon.Memory4CutServer.domain.entity.Group;
 import cokothon.Memory4CutServer.domain.infrastructure.GroupRepository;
@@ -39,5 +40,16 @@ public class GroupService {
 		groupRepository.findByInviteCode(request.inviteCode()).orElseThrow(
 			() -> new BaseException(ErrorType.NOT_FOUND_GROUP)
 		);
+	}
+
+	public GetGroupPhotoResponse getFourCutPhoto(Long groupId) {
+		Group group = groupRepository.findById(groupId).orElseThrow(
+			() -> new BaseException(ErrorType.NOT_FOUND_GROUP)
+		);
+		if (group.achieveCount() != 4) {
+			throw new BaseException(ErrorType.NOT_YET_ACHIEVE_FOUR_USERS);
+		}
+
+		return GetGroupPhotoResponse.of(group.getAchievedList());
 	}
 }

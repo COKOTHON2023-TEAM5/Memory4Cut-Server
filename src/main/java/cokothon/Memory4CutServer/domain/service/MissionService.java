@@ -1,6 +1,7 @@
 package cokothon.Memory4CutServer.domain.service;
 
 import java.io.IOException;
+import java.util.ArrayList;
 
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -51,7 +52,7 @@ public class MissionService {
 			memberMissionRepository.save(memberMission);
 
 			group.addAchieveMission(memberMission);
-			return GetGroupPhotoResponse.of(null);
+			return GetGroupPhotoResponse.of(new ArrayList<MemberMission>());
 		} catch (RuntimeException | IOException e) {
 			throw new RuntimeException(e.getMessage());
 		}
@@ -83,6 +84,30 @@ public class MissionService {
 		Mission mission = missionRepository.getRandomNewMission(group.getAchievedList().get(0).getMission().getId());
 		group.changeMission(mission);
 
+		return GetMissionResponse.of(mission, group.achieveCount());
+	}
+
+	@Transactional
+	public GetMissionResponse resetAchieveMission(Long groupId) {
+
+		Group group = getGroupById(groupId);
+
+		Mission mission = missionRepository.getRandomNewMission(group.getAchievedList().get(0).getMission().getId());
+		MemberMission memberMission = MemberMission.builder()
+			.isAchieve(false)
+			.mission(mission)
+			.build();
+		memberMissionRepository.save(memberMission);
+
+		group.getAchievedList().forEach(m -> {
+			try {
+				s3Service.deleteImage(m.getImgUrl());
+				memberMissionRepository.delete(m);
+			} catch (IOException e) {
+				throw new RuntimeException(e.getMessage());
+			}
+		});
+		group.resetAchieveMisson(memberMission);
 		return GetMissionResponse.of(mission, group.achieveCount());
 	}
 

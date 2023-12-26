@@ -1,9 +1,9 @@
 package cokothon.Memory4CutServer.domain.controller;
 
 import org.springframework.http.HttpStatus;
+import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.PatchMapping;
 import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestPart;
 import org.springframework.web.bind.annotation.ResponseStatus;
@@ -29,7 +29,7 @@ public class MissionController {
 	@ResponseStatus(HttpStatus.OK)
 	public ApiResponse<GetGroupPhotoResponse> uploadMissionAchieve(
 			@RequestPart("mission_img") MultipartFile missionImg,
-			@RequestBody AchieveMissionRequest request,
+			AchieveMissionRequest request,
 			@PathVariable Long groupId) {
 
 		return ApiResponse.success(SuccessType.UPLOAD_MISSION_ACHIEVE_SUCCESS, missionService.achieveMission(request, missionImg, groupId));
@@ -45,5 +45,11 @@ public class MissionController {
 	@ResponseStatus(HttpStatus.OK)
 	public ApiResponse<GetMissionResponse> chanegeMission(@PathVariable Long groupId) {
 		return ApiResponse.success(SuccessType.CHANGE_MISSION_SUCCESS, missionService.changeMission(groupId));
+	}
+
+	@DeleteMapping
+	@ResponseStatus(HttpStatus.OK)
+	public ApiResponse<GetMissionResponse> resetMisson(@PathVariable Long groupId) {
+		return ApiResponse.success(SuccessType.RESET_MISSION_SUCCESS, missionService.resetAchieveMission(groupId));
 	}
 }
