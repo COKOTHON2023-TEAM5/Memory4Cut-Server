@@ -1,5 +1,7 @@
 package cokothon.Memory4CutServer.global.common.response;
 
+import java.util.Map;
+
 import com.fasterxml.jackson.annotation.JsonInclude;
 
 import lombok.AccessLevel;
@@ -36,5 +38,9 @@ public class ApiResponse<T> {
 
 	public static ApiResponse<Exception> error(ErrorType errorType, Exception e) {
 		return new ApiResponse<>(errorType.getHttpStatusCode(), errorType.getMessage(), e);
+	}
+
+	public static ApiResponse<Map<String, String>> error(ErrorType errorType, Map<String, String> stringMap) {
+		return new ApiResponse<>(errorType.getHttpStatusCode(), errorType.getMessage(), stringMap);
 	}
 }

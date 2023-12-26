@@ -37,7 +37,7 @@ public class GroupService {
 
 	public void joinGroup(JoinGroupRequest request) {
 		groupRepository.findByInviteCode(request.inviteCode()).orElseThrow(
-			() -> new BaseException(ErrorType.NOT_FOUND_GROUP)
+			() -> new BaseException(ErrorType.NOT_FOUND_GROUP_BY_CODE)
 		);
 	}
 

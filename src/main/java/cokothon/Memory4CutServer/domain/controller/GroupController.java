@@ -17,6 +17,7 @@ import cokothon.Memory4CutServer.domain.dto.response.GetInviteCodeResponse;
 import cokothon.Memory4CutServer.domain.service.GroupService;
 import cokothon.Memory4CutServer.global.common.response.ApiResponse;
 import cokothon.Memory4CutServer.global.common.response.SuccessType;
+import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 
 @RestController
@@ -28,7 +29,7 @@ public class GroupController {
 
 	@PostMapping
 	@ResponseStatus(HttpStatus.CREATED)
-	public ApiResponse createGroup(@RequestBody PostGroupRequest request) {
+	public ApiResponse createGroup(@Valid @RequestBody PostGroupRequest request) {
 		groupService.createGroup(request);
 		return ApiResponse.success(SuccessType.GROUP_CREATE_SUCCESS);
 	}
@@ -41,7 +42,7 @@ public class GroupController {
 
 	@GetMapping("/join")
 	@ResponseStatus(HttpStatus.OK)
-	public ApiResponse joinGroup(@RequestBody JoinGroupRequest request) {
+	public ApiResponse joinGroup(@Valid @RequestBody JoinGroupRequest request) {
 		groupService.joinGroup(request);
 		return ApiResponse.success(SuccessType.GROUP_JOIN_SUCCESS);
 	}
