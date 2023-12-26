@@ -47,7 +47,7 @@ public class GroupService {
 			() -> new BaseException(ErrorType.NOT_FOUND_GROUP)
 		);
 		if (group.achieveCount() != 4) {
-			throw new BaseException(ErrorType.INVALID_TRY_TO_CHANGE_MISSION);
+			throw new BaseException(ErrorType.NOT_YET_ACHIEVE_FOUR_USERS);
 		}
 
 		return GetGroupPhotoResponse.of(group.getAchievedList());

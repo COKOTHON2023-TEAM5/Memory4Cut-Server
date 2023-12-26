@@ -19,6 +19,8 @@ public enum SuccessType {
 	GET_NEW_MISSION_SUCCESS(HttpStatus.OK, "새로운 미션 조회에 성공했습니다."),
 	CHANGE_MISSION_SUCCESS(HttpStatus.OK, "미션 새로고침에 성공했습니다."),
 	GET_GROUP_PHOTO_SUCCESS(HttpStatus.OK, "그룹 추억네컷 사진 조회에 성공했습니다."),
+	RESET_MISSION_SUCCESS(HttpStatus.OK, "미션 초기화에 성공했습니다."),
+
 
 	/**
 	 * 201 Created

@@ -47,8 +47,9 @@ public class Group extends BaseTimeEntity {
 		this.achievedList.add(mission);
 	}
 
-	public void clearMissons() {
+	public void resetAchieveMisson(MemberMission mission) {
 		this.achievedList.clear();
+		this.achievedList.add(mission);
 	}
 
 	public int achieveCount() {

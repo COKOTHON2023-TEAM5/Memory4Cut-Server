@@ -87,6 +87,30 @@ public class MissionService {
 		return GetMissionResponse.of(mission, group.achieveCount());
 	}
 
+	@Transactional
+	public GetMissionResponse resetAchieveMission(Long groupId) {
+
+		Group group = getGroupById(groupId);
+
+		Mission mission = missionRepository.getRandomNewMission(group.getAchievedList().get(0).getMission().getId());
+		MemberMission memberMission = MemberMission.builder()
+			.isAchieve(false)
+			.mission(mission)
+			.build();
+		memberMissionRepository.save(memberMission);
+
+		group.getAchievedList().forEach(m -> {
+			try {
+				s3Service.deleteImage(m.getImgUrl());
+				memberMissionRepository.delete(m);
+			} catch (IOException e) {
+				throw new RuntimeException(e.getMessage());
+			}
+		});
+		group.resetAchieveMisson(memberMission);
+		return GetMissionResponse.of(mission, group.achieveCount());
+	}
+
 	private Group getGroupById(Long id) {
 		return groupRepository.findById(id).orElseThrow(
 			() -> new BaseException(ErrorType.NOT_FOUND_GROUP)
