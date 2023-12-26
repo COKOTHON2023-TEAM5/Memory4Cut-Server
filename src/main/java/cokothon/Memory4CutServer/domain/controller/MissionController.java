@@ -41,4 +41,10 @@ public class MissionController {
 	public ApiResponse<GetMissionResponse> getNewMission(@PathVariable Long groupId) {
 		return ApiResponse.success(SuccessType.GET_NEW_MISSION_SUCCESS, missionService.getNewMission(groupId));
 	}
+
+	@PatchMapping
+	@ResponseStatus(HttpStatus.OK)
+	public ApiResponse<GetMissionResponse> chanegeMission(@PathVariable Long groupId) {
+		return ApiResponse.success(SuccessType.CHANGE_MISSION_SUCCESS, missionService.changeMission(groupId));
+	}
 }

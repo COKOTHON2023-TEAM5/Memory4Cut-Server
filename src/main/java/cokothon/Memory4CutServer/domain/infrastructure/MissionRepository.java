@@ -9,4 +9,7 @@ public interface MissionRepository extends JpaRepository<Mission, Long> {
 
 	@Query(value = "SELECT * FROM mission ORDER BY RAND() LIMIT 1", nativeQuery = true)
 	Mission getRandomTodayMission();
+
+	@Query(value = "SELECT * FROM mission WHERE mission_id != :originMissionId ORDER BY RAND() LIMIT 1", nativeQuery = true)
+	Mission getRandomNewMission(Mission originMission);
 }

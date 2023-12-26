@@ -53,6 +53,7 @@ public class MissionService {
 		}
 	}
 
+	@Transactional
 	public GetMissionResponse getNewMission(Long groupId) {
 
 		Group group = getGroupById(groupId);
@@ -61,6 +62,20 @@ public class MissionService {
 			.isAchieve(false)
 			.mission(mission)
 			.build());
+
+		return GetMissionResponse.of(mission, group.achieveCount());
+	}
+
+	@Transactional
+	public GetMissionResponse changeMission(Long groupId) {
+
+		Group group = getGroupById(groupId);
+
+		if (group.achieveCount() >= 1) {
+			throw new BaseException(ErrorType.INVALID_TRY_TO_CHANGE_MISSION);
+		}
+		Mission mission = missionRepository.getRandomNewMission(group.getAchievedList().get(0).getMission());
+		group.changeMission(mission);
 
 		return GetMissionResponse.of(mission, group.achieveCount());
 	}

@@ -15,6 +15,7 @@ public enum ErrorType {
 	 */
 	INVALID_IMAGE_EXTENSION(HttpStatus.BAD_REQUEST, "이미지 확장자는 jpeg, png, jpg, wepb만 가능합니다."),
 	INVALID_IMAGE_SIZE(HttpStatus.BAD_REQUEST, "이미지 사이즈는 5MB를 넘을 수 없습니다."),
+	INVALID_TRY_TO_CHANGE_MISSION(HttpStatus.BAD_REQUEST, "이미 인증한 유저가 존재하므로 미션을 새로고침할 수 없습니다."),
 
 	/**
 	 * 404 Not Found

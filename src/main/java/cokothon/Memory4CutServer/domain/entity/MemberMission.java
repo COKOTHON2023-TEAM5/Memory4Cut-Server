@@ -41,4 +41,8 @@ public class MemberMission extends BaseTimeEntity {
 		this.imgUrl = imgUrl;
 		this.mission = mission;
 	}
+
+	public void updateMission(Mission mission) {
+		this.mission = mission;
+	}
 }

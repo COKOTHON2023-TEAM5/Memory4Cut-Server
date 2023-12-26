@@ -57,4 +57,10 @@ public class Group extends BaseTimeEntity {
 			.count();
 		return (int) count;
 	}
+
+	public void changeMission(Mission mission) {
+		if (this.achievedList.size() == 1) {
+			this.achievedList.get(0).updateMission(mission);
+		}
+	}
 }
