@@ -1,0 +1,37 @@
+name: CI
+
+on:
+  push:
+    branches: [ "develop" ]
+  pull_request:
+    branches: [ "develop" ]
+
+# job에 대한 정의
+jobs:
+  build:  # job의 이름
+    runs-on: ubuntu-22.04
+    env:
+      working-directory: ./   # 프로젝트 디렉토리
+
+    # step: job을 이루는 아주 작은 작업 단위
+    steps: 
+    - name: 체크아웃
+      uses: actions/checkout@v3
+
+    - name: Set up JDK 17  # Java 실행 환경 세팅
+      uses: actions/setup-java@v3
+      with:
+        distribution: 'corretto'  # Java 배포판
+        java-version: '17'        # Java 버전
+
+    - name: application.yaml 생성
+      run: |   # '|'을 붙이면 여러 줄 실행 가능
+          # yaml을 생성할 디렉터리로 작업 디렉터리 이동
+          cd ./src/main/resources
+          echo "${{ secrets.COKOTHON_SERVER_YML }}" > ./application-dev.yml
+
+    - name: 빌드
+      run: |
+          chmod +x gradlew
+          ./gradlew build -x test
+      shell: bash
