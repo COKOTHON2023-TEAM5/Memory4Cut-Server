@@ -28,7 +28,7 @@ jobs:
       run: |   # '|'을 붙이면 여러 줄 실행 가능
           # yaml을 생성할 디렉터리로 작업 디렉터리 이동
           cd ./src/main/resources
-          echo "${{ secrets.COKOTHON_SERVER_YML }}" > ./application-dev.yml
+          echo "${{ secrets.COKOTHON_SERVER_YML }}" > ./application-deploy.yml
 
     - name: 빌드
       run: |

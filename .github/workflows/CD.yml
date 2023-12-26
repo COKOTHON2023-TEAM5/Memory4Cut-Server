@@ -20,7 +20,7 @@ jobs:
     - name: application.yaml 생성
       run: | 
           cd src/main/resources
-          echo "${{ secrets.COKOTHON_SERVER_YML }}" > ./application-dev.yml
+          echo "${{ secrets.COKOTHON_SERVER_YML }}" > ./application-deploy.yml
       working-directory: ${{ env.working-directory }}
 
     - name: 빌드
@@ -59,4 +59,5 @@ jobs:
         key: ${{ secrets.RELEASE_SERVER_KEY }}
         script: |
           cd ~
+          chmod 774 ./deploy.sh
           ./deploy.sh
