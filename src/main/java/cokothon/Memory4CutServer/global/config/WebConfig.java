@@ -13,8 +13,9 @@ public class WebConfig implements WebMvcConfigurer {
     public void addCorsMappings(CorsRegistry registry) {
         registry.addMapping("/**")
                 .allowedOrigins("http://localhost:8085", "http://localhost:3000")
-//              .allowedOrigins("*")   // Postman 테스트를 위한 와일드카드 설정
-                .allowedMethods("OPTIONS", "GET", "POST", "PUT", "DELETE")
+                // .allowedOrigins("*")   // Postman 테스트를 위한 와일드카드 설정
+                // .allowedOriginPatterns("*")
+                .allowedMethods("OPTIONS", "GET", "POST", "PUT", "DELETE", "PATCH")
                 .allowCredentials(true)
                 .maxAge(3600);
     }
