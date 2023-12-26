@@ -1,6 +1,7 @@
 package cokothon.Memory4CutServer.domain.service;
 
 import java.io.IOException;
+import java.util.ArrayList;
 
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -51,7 +52,7 @@ public class MissionService {
 			memberMissionRepository.save(memberMission);
 
 			group.addAchieveMission(memberMission);
-			return GetGroupPhotoResponse.of(null);
+			return GetGroupPhotoResponse.of(new ArrayList<MemberMission>());
 		} catch (RuntimeException | IOException e) {
 			throw new RuntimeException(e.getMessage());
 		}

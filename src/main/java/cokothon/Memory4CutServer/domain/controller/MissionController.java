@@ -29,7 +29,7 @@ public class MissionController {
 	@ResponseStatus(HttpStatus.OK)
 	public ApiResponse<GetGroupPhotoResponse> uploadMissionAchieve(
 			@RequestPart("mission_img") MultipartFile missionImg,
-			@RequestBody AchieveMissionRequest request,
+			AchieveMissionRequest request,
 			@PathVariable Long groupId) {
 
 		return ApiResponse.success(SuccessType.UPLOAD_MISSION_ACHIEVE_SUCCESS, missionService.achieveMission(request, missionImg, groupId));
