@@ -41,7 +41,7 @@ public class GroupService {
 	@Transactional
 	public void joinGroup(JoinGroupRequest request) {
 		Group group = groupRepository.findByInviteCode(request.inviteCode()).orElseThrow(
-			() -> new BaseException(ErrorType.INTERNAL_SERVER_ERROR)
+			() -> new BaseException(ErrorType.NOT_FOUND_GROUP)
 		);
 
 		Member member = new Member();
