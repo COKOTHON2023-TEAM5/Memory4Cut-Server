@@ -1,6 +1,8 @@
 package cokothon.Memory4CutServer.domain.dto.response;
 
+import com.fasterxml.jackson.annotation.JsonProperty;
+
 public record GetInviteCodeResponse(
-	String inviteCode
+	@JsonProperty("invite_code") String inviteCode
 ) {
 }
