@@ -8,9 +8,7 @@ import cokothon.Memory4CutServer.domain.dto.request.JoinGroupRequest;
 import cokothon.Memory4CutServer.domain.dto.request.PostGroupRequest;
 import cokothon.Memory4CutServer.domain.dto.response.GetInviteCodeResponse;
 import cokothon.Memory4CutServer.domain.entity.Group;
-import cokothon.Memory4CutServer.domain.entity.Member;
 import cokothon.Memory4CutServer.domain.infrastructure.GroupRepository;
-import cokothon.Memory4CutServer.domain.infrastructure.MemberRepository;
 import cokothon.Memory4CutServer.global.common.exception.BaseException;
 import cokothon.Memory4CutServer.global.common.response.ErrorType;
 import lombok.RequiredArgsConstructor;
@@ -21,7 +19,6 @@ import lombok.RequiredArgsConstructor;
 public class GroupService {
 
 	private final GroupRepository groupRepository;
-	private final MemberRepository memberRepository;
 
 	@Transactional
 	public void createGroup(PostGroupRequest request) {
@@ -40,12 +37,8 @@ public class GroupService {
 
 	@Transactional
 	public void joinGroup(JoinGroupRequest request) {
-		Group group = groupRepository.findByInviteCode(request.inviteCode()).orElseThrow(
+		groupRepository.findByInviteCode(request.inviteCode()).orElseThrow(
 			() -> new BaseException(ErrorType.NOT_FOUND_GROUP)
 		);
-
-		Member member = new Member();
-		memberRepository.save(member);
-		group.addGroupMember(member);
 	}
 }
