@@ -35,7 +35,6 @@ public class GroupService {
 			"-" + RandomStringUtils.randomAlphanumeric(6));
 	}
 
-	@Transactional
 	public void joinGroup(JoinGroupRequest request) {
 		groupRepository.findByInviteCode(request.inviteCode()).orElseThrow(
 			() -> new BaseException(ErrorType.NOT_FOUND_GROUP)

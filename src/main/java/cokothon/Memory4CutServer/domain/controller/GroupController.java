@@ -39,8 +39,8 @@ public class GroupController {
 		return ApiResponse.success(SuccessType.GET_INVITE_CODE_SUCCESS, groupService.generateInviteCode());
 	}
 
-	@PostMapping("/join")
-	@ResponseStatus(HttpStatus.CREATED)
+	@GetMapping("/join")
+	@ResponseStatus(HttpStatus.OK)
 	public ApiResponse joinGroup(@RequestBody JoinGroupRequest request) {
 		groupService.joinGroup(request);
 		return ApiResponse.success(SuccessType.GROUP_JOIN_SUCCESS);
