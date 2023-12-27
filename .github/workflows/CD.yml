@@ -58,6 +58,6 @@ jobs:
         username: ${{ secrets.RELEASE_SERVER_USER }}
         key: ${{ secrets.RELEASE_SERVER_KEY }}
         script: |
-          docker rm -f cokothonteam5-8085
+          docker rm -f cokothonteam5
           docker image pull yejunpark1/cokothonteam5
-          docker run -d --name cokothonteam5-8085 -p 8085:8085 yejunpark1/cokothonteam5
+          docker run -d --name cokothonteam5 -p 8080:8085 yejunpark1/cokothonteam5
