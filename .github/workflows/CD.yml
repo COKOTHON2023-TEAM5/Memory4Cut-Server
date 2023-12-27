@@ -60,4 +60,4 @@ jobs:
         script: |
           docker rm -f cokothonteam5
           docker image pull yejunpark1/cokothonteam5
-          docker run -d --name cokothonteam5 -p 8085:8085 yejunpark1/cokothonteam5
+          docker run -d --name cokothonteam5-8085 -p 8085:8085 yejunpark1/cokothonteam5
