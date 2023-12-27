@@ -52,11 +52,12 @@ jobs:
     steps:    # EC2 인스턴스 내부에서 도커 이미지 다운로드
     - name: 도커 컨테이너 실행
       uses: appleboy/ssh-action@master
-      # *-p : Port {외부에서 접속할 포트}:ㅖ내부에서 실행되는 포트}로 지정
+      # *-p : Port {외부에서 접속할 포트}:{내부에서 실행되는 포트}로 지정
       with:
         host: ${{ secrets.RELEASE_SERVER_IP }}
         username: ${{ secrets.RELEASE_SERVER_USER }}
         key: ${{ secrets.RELEASE_SERVER_KEY }}
         script: |
-          cd ~
-          ./deploy.sh
+          docker rm -f cokothonteam5
+          docker image pull yejunpark1/cokothonteam5
+          docker run -d --name cokothonteam5 -p 8085:8085 yejunpark1/cokothonteam5
