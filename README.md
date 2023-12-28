@@ -30,15 +30,15 @@
 🗂 java/cokothon/Memory4CutServer
 	📂 domain
 	  🗂 controller
-    🗂 dto
+	  🗂 dto
 	  🗂 entity
 	  🗂 infrastructure
 	  🗂 service
 	📂 global
-		🗂 common
+	  🗂 common
 	      🗂 advice
 	      🗂 exception
-				🗂 response
+	      🗂 response
 	  🗂 config
 	  🗂 external
 🗂 resources
