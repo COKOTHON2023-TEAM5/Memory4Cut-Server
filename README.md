@@ -43,7 +43,7 @@
 	  🗂 external
 🗂 resources
   application-local.yml
-	application-dev.yml
+  application-dev.yml
 
 ```
 
