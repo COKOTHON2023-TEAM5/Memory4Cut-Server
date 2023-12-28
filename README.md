@@ -28,19 +28,19 @@
 📂 Memory4CutServer
 
 🗂 java/cokothon/Memory4CutServer
-	📂 domain
-	  🗂 controller
-	  🗂 dto
-	  🗂 entity
-	  🗂 infrastructure
-	  🗂 service
-	📂 global
-	  🗂 common
-	      🗂 advice
-	      🗂 exception
-	      🗂 response
-	  🗂 config
-	  🗂 external
+   📂 domain
+	🗂 controller
+	🗂 dto
+	🗂 entity
+	🗂 infrastructure
+	🗂 service
+   📂 global
+	🗂 common
+	   🗂 advice
+	   🗂 exception
+	   🗂 response
+	🗂 config
+	🗂 external
 🗂 resources
   application-local.yml
   application-dev.yml
